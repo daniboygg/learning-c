@@ -119,6 +119,47 @@ int smart_append(text_buffer_t *dest, const char *src) {
     }
 }
 
+//ch4 l1, l2
+typedef enum Color {
+    RED = 55,
+    GREEN = 178,
+    BLUE = 38,
+} color_t;
+
+// ch4 l3
+typedef enum HttpErrorCode {
+    HTTP_BAD_REQUEST = 400,
+    HTTP_UNAUTHORIZED = 401,
+    HTTP_NOT_FOUND = 404,
+    HTTP_TEAPOT = 418,
+    HTTP_INTERNAL_SERVER_ERROR = 500
+} http_error_code_t;
+
+char *http_to_str(http_error_code_t code) {
+    switch (code) {
+        case HTTP_BAD_REQUEST:
+            return "400 Bad Request";
+        case HTTP_UNAUTHORIZED:
+            return "401 Unauthorized";
+        case HTTP_NOT_FOUND:
+            return "404 Not Found";
+        case HTTP_TEAPOT:
+            return "418 I AM A TEAPOT!";
+        case HTTP_INTERNAL_SERVER_ERROR:
+            return "500 Internal Server Error";
+        default:
+            return "Unknown HTTP status code";
+    }
+}
+
+// ch4 l4
+typedef enum {
+    BIG = 123412341234,
+    BIGGER,
+    BIGGEST,
+} big_number_t;
+
+
 int main() {
     coordinate_t c = coord_new(20, 40, 5);
     assert(c.x == 20);
@@ -217,6 +258,26 @@ int main() {
         assert(strcmp(dest.buffer, "This is a long string that will fill the whole buffer and leave") == 0);
         assert(dest.length == 63);
     } while (0);
+
+    // ch4 l1, l2
+    assert(RED == 55);
+    assert(GREEN == 178);
+    assert(BLUE == 38);
+    assert(RED != 4);
+    assert(GREEN != 2);
+    assert(BLUE != 0);
+
+    // ch4 l3
+    assert(strcmp(http_to_str(HTTP_BAD_REQUEST), "400 Bad Request") == 0);
+    assert(strcmp(http_to_str(HTTP_UNAUTHORIZED), "401 Unauthorized") == 0);
+    assert(strcmp(http_to_str(HTTP_NOT_FOUND), "404 Not Found") == 0);
+    assert(strcmp(http_to_str(HTTP_TEAPOT), "418 I AM A TEAPOT!") == 0);
+    assert(strcmp(http_to_str(HTTP_INTERNAL_SERVER_ERROR), "500 Internal Server Error") == 0);
+    assert(strcmp(http_to_str((http_error_code_t) 999), "Unknown HTTP status code") == 0);
+
+    // ch4 l4
+    // printf("size of http error : %zu\n", sizeof(http_error_code_t));
+    // printf("size of big numbers: %zu\n", sizeof(big_number_t));
 
     return 0;
 }
