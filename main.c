@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 // coordinate
 typedef struct Coordinate {
@@ -76,6 +77,21 @@ void dump_graphics(graphics_t gsettings[10]) {
     }
 }
 
+// void core_utils_func(int core_utilization[]) {
+//     // array decays to a pointer so sizeof return the size of a pointer not size of the array
+//     printf("sizeof core_utilization in core_utils_func: %zu\n", sizeof(core_utilization));
+// }
+
+void concat_strings(char *str1, const char *str2) {
+    int end = 0;
+    for (end = 0; str1[end] != '\0'; end++) {}
+    for (int i = 0; str2[i] != '\0'; i++) {
+        str1[end] = str2[i];
+        end++;
+    }
+    str1[end] = '\0';
+}
+
 int main() {
     coordinate_t c = coord_new(20, 40, 5);
     assert(c.x == 20);
@@ -126,6 +142,18 @@ int main() {
     //     {90, 1200, 1920}
     // };
     // dump_graphics(graphics_array);
+
+    // int core_utilization[] = {43, 67, 89, 92, 71, 43, 56, 12};
+    // int len = sizeof(core_utilization) / sizeof(core_utilization[0]);
+    // printf("sizeof core_utilization in main: %zd\n", sizeof(core_utilization));
+    // printf("len of core_utilization: %d\n", len);
+    // core_utils_func(core_utilization);
+
+    char str1[100] = "Hello ";
+    const char *str2 = "World";
+    concat_strings(str1, str2);
+    assert(strcmp(str1, "Hello World") == 0);
+    assert(str1[11] == '\0');
 
     return 0;
 }
