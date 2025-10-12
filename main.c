@@ -82,14 +82,41 @@ void dump_graphics(graphics_t gsettings[10]) {
 //     printf("sizeof core_utilization in core_utils_func: %zu\n", sizeof(core_utilization));
 // }
 
+// L14
 void concat_strings(char *str1, const char *str2) {
     int end = 0;
-    for (end = 0; str1[end] != '\0'; end++) {}
+    for (end = 0; str1[end] != '\0'; end++) {
+    }
     for (int i = 0; str2[i] != '\0'; i++) {
         str1[end] = str2[i];
         end++;
     }
     str1[end] = '\0';
+}
+
+// CH3 L15
+typedef struct TextBuffer {
+    size_t length;
+    char buffer[64];
+} text_buffer_t;
+
+int smart_append(text_buffer_t *dest, const char *src) {
+    if (dest == NULL || src == NULL) {
+        return 1;
+    }
+    const size_t BUFFER_SIZE = sizeof(dest->buffer);
+    const size_t SCR_LENGTH = strlen(src);
+    const size_t REMAINING = BUFFER_SIZE - dest->length - 1;
+
+    if (SCR_LENGTH > REMAINING) {
+        strncat(dest->buffer, src, REMAINING);
+        dest->length = BUFFER_SIZE - 1;
+        return 1;
+    } else {
+        strncat(dest->buffer, src, REMAINING);
+        dest->length += SCR_LENGTH;
+        return 0;
+    }
 }
 
 int main() {
@@ -149,11 +176,47 @@ int main() {
     // printf("len of core_utilization: %d\n", len);
     // core_utils_func(core_utilization);
 
-    char str1[100] = "Hello ";
-    const char *str2 = "World";
-    concat_strings(str1, str2);
-    assert(strcmp(str1, "Hello World") == 0);
-    assert(str1[11] == '\0');
+    do {
+        char str1[100] = "Hello ";
+        const char *str2 = "World";
+        concat_strings(str1, str2);
+        assert(strcmp(str1, "Hello World") == 0);
+        assert(str1[11] == '\0');
+    } while (0);
+
+    // CH3 l15
+    do {
+        text_buffer_t dest;
+        const char *src = NULL;
+        assert(smart_append(&dest, src) == 1);
+    } while (0);
+    do {
+        text_buffer_t dest;
+        strcpy(dest.buffer, "");
+        dest.length = 0;
+        const char *src = "Hello";
+        assert(smart_append(&dest, src) == 0);
+        assert(strcmp(dest.buffer, "Hello") == 0);
+        assert(dest.length == 5);
+    } while (0);
+    do {
+        text_buffer_t dest;
+        strcpy(dest.buffer, "This is a very long string that will fill up the entire buffer.");
+        dest.length = 63;
+        const char *src = " Extra";
+        assert(smart_append(&dest, src) == 1);
+        assert(strcmp(dest.buffer, "This is a very long string that will fill up the entire buffer.") == 0);
+        assert(dest.length == 63);
+    } while (0);
+    do {
+        text_buffer_t dest;
+        strcpy(dest.buffer, "This is a long string");
+        dest.length = 21;
+        const char *src = " that will fill the whole buffer and leave no space for some of the chars.";
+        assert(smart_append(&dest, src) == 1);
+        assert(strcmp(dest.buffer, "This is a long string that will fill the whole buffer and leave") == 0);
+        assert(dest.length == 63);
+    } while (0);
 
     return 0;
 }
