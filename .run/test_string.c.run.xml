@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="test_string.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://$PROJECT_DIR$/strings" PASS_PARENT_ENVS_2="true" PROJECT_NAME="learning-c" TARGET_NAME="test_string.c" CONFIG_NAME="test_string.c">
+    <option name="compilerOptions" value="-std=c99 -Werror -g -fsanitize=address" />
+    <option name="sourceFile" value="$PROJECT_DIR$/strings/test_string.c" />
+    <option name="toolchainName" value="gcc" />
+    <method v="2">
+      <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>

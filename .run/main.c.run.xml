@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="main.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="learning-c" TARGET_NAME="main.c" CONFIG_NAME="main.c">
-    <option name="compilerOptions" value="-std=c99 -Werror -fsanitize=address" />
+    <option name="compilerOptions" value="-std=c99 -Werror -g -fsanitize=address" />
     <option name="sourceFile" value="main.c" />
     <option name="toolchainName" value="gcc" />
     <method v="2">
